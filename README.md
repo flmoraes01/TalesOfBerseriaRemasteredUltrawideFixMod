@@ -1,18 +1,18 @@
 # Tales of Berseria Remastered — Ultrawide Fix
 
-Corrige a imagem esticada e o HUD em resoluções diferentes de 16:9/16:10 (ex.: 3440x1440).
+Fixes the stretched image and HUD at aspect ratios other than 16:9/16:10 (e.g. 3440x1440).
 
-O jogo roda o motor original (`TLSampleViewerTO12.dll`) dentro do Unity. Esse motor só
-conhece 16:9 e 16:10 e "encaixa" qualquer outra proporção em 16:9, o que estica tudo. O mod
-corrige isso na memória quando a DLL do motor é carregada:
+The game runs its original engine (`TLSampleViewerTO12.dll`) inside Unity. That engine only
+knows 16:9 and 16:10 and snaps any other aspect ratio to 16:9, which stretches everything. The
+mod fixes this in memory as soon as the engine DLL is loaded:
 
-- **Imagem 3D**: usa a proporção real da resolução (sem esticar).
-- **HUD/menus**: o canvas da UI (1280x720 centrado) passa a ter `720·aspecto × 720`,
-  mantendo o HUD proporcional e centralizado na área 16:9.
-- **Fades/fundos de menu em tela cheia**: redimensionados para cobrir a tela inteira.
+- **3D image**: uses the real aspect ratio of the resolution (no stretching).
+- **HUD/menus**: the UI canvas (1280x720, centred) becomes `720·aspect × 720`, keeping the
+  HUD proportional and centred in the 16:9 area.
+- **Full-screen fades/menu backgrounds**: resized to cover the whole screen.
 
-As alterações são localizadas por assinatura de bytes; se uma atualização do jogo quebrar
-alguma, o mod não aplica aquela parte e registra isso no log.
+Patches are located by byte signatures; if a game update breaks one, the mod skips that part
+and records it in the log.
 
 ## Build
 
@@ -20,16 +20,16 @@ alguma, o mod não aplica aquela parte e registra isso no log.
 cargo build --release
 ```
 
-Gera `target/release/version.dll` (Rust, toolchain MSVC).
+Produces `target/release/version.dll` (Rust, MSVC toolchain).
 
-## Instalação
+## Installation
 
-1. Copie `version.dll` para a pasta do jogo (`...\Tales of Berseria Remastered\`).
-2. No jogo, use a resolução nativa (ex.: 3440x1440).
-3. Mantenha desativado o plugin antigo `TalesOfBerseriaUI.addon` (ele aplica correções semelhantes).
+1. Copy `version.dll` into the game folder (`...\Tales of Berseria Remastered\`).
+2. In the game, use your native resolution (e.g. 3440x1440).
+3. Keep the old `TalesOfBerseriaUI.addon` plugin disabled (it applies similar fixes).
 
-Após abrir o jogo, `TOBUltrawide.log` na mesma pasta mostra o que foi aplicado.
+After launching the game, `TOBUltrawide.log` in the same folder shows what was applied.
 
-## Remoção
+## Uninstall
 
-Apague `version.dll` (e `TOBUltrawide.log`) da pasta do jogo.
+Delete `version.dll` (and `TOBUltrawide.log`) from the game folder.
