@@ -1,0 +1,2 @@
+cargo:rerun-if-changed=F:\Projetos\Tales\version.def
+cargo:rustc-cdylib-link-arg=/DEF:F:\Projetos\Tales\version.def
